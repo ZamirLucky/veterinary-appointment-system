@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../services/appointment.service';
 import { Appointment } from '../dto/appointment.dto';
-import { HeaderComponent } from "../header/header.component";
-import { RouterOutlet } from '@angular/router';
+//import { HeaderComponent } from "../header/header.component";
+//import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet],
+  imports: [],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.css'
 })
