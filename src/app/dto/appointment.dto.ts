@@ -9,7 +9,7 @@ export class Appointment{
 
     constructor(
         id: number,
-        pattientNAme: string,
+        patientName: string,
         animalType: string,
         ownerName: string,
         ownerSurname: string,
@@ -17,7 +17,7 @@ export class Appointment{
         appointmentDuratino: string
     ){
         this._id = id;
-        this._patientName = pattientNAme;
+        this._patientName = patientName;
         this._animalType = animalType;
         this._ownerName = ownerName;
         this._ownerSurname = ownerSurname;
@@ -71,8 +71,8 @@ export class Appointment{
     public get appointmentDuration(): string{
         return this._appointmentDuration;
     }
-    public set appointmentDuration(appointmentDuratino: string){
-        this._appointmentDuration = this.appointmentDuration;
+    public set appointmentDuration(appointmentDuration: string){
+        this._appointmentDuration = appointmentDuration;
     }
 
 }

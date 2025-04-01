@@ -7,7 +7,7 @@ import { Appointment } from '../dto/appointment.dto';
   providedIn: 'root'
 })
 export class AppointmentService {
-  private endPoint: string = 'http://localhost:8080/swagger-ui.html/appointments'
+  private endPoint: string = 'http://localhost:8080/appointments'
 
   httpHeader = {
     headers: new HttpHeaders({

@@ -8,40 +8,45 @@
 <body>
   <div class="container my-4">
     <h1 class="mb-4">List of Appointments</h1>
-    <div class="table-responsive">
-      <table class="table table-striped align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Id</th>
-            <th>Patient Name</th>
-            <th>Animal Type</th>
-            <th>Owner Name</th>
-            <th>Owner Surname</th>
-            <th>Appointment Date and Time</th>
-            <th>Appointment Duration</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Example appointment row -->
-          <tr>
-            <td>1</td>
-            <td>Buddy</td>
-            <td>Dog</td>
-            <td>Jane</td>
-            <td>Doe</td>
-            <td>2025-04-20 14:30</td>
-            <td>15 mins</td>
-            <td>
-              <a href="view-appointment.html?id=1" class="btn btn-info btn-sm">View</a>
-              <a href="update-appointment.html?id=1" class="btn btn-warning btn-sm">Update</a>
-              <button class="btn btn-danger btn-sm" onclick="deleteAppointment(1)">Delete</button>
-            </td>
-          </tr>
-          <!-- Additional rows can be generated dynamically -->
-        </tbody>
-      </table>
-    </div>
+    @if (appointments != null && appointments.length > 0){
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Patient Name</th>
+                        <th>Animal Type</th>
+                        <th>Owner Name</th>
+                        <th>Owner Surname</th>
+                        <th>Appointment Date and Time</th>
+                        <th>Appointment Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- Example appointment row -->
+                    @for (appointment of appointments; track appointment.id){
+                        <tr>
+                            <td>{{appointment.id}}</td>
+                            <td>{{appointment.PatientName}}</td>
+                            <td>{{appointment.animalType}}</td>
+                            <td>{{appointment.ownerName}}</td>
+                            <td>{{appointment.ownerSurname}}</td>
+                            <td>{{appointment.appointmentDateTime}}</td>
+                            <td>{{appointment.appointmentDuration}}</td>
+                            <td>
+                            <a href="view-appointment.html?id=1" class="btn btn-info btn-sm">View</a>
+                            <a href="update-appointment.html?id=1" class="btn btn-warning btn-sm">Update</a>
+                            <button class="btn btn-danger btn-sm" onclick="deleteAppointment(1)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    } @else {
+        <div>The appointments is empty</div>
+    }
   </div>
 </body>
 </html>
