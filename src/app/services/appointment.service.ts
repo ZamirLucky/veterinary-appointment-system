@@ -7,7 +7,8 @@ import { Appointment } from '../dto/appointment.dto';
   providedIn: 'root'
 })
 export class AppointmentService {
-  private endPoint: string = '/appointments'
+  private appointmentEndPoint: string = '/appointment'
+  private authEndPoint: string = '/authenticate'
 
   httpHeader = {
     headers: new HttpHeaders({
@@ -18,6 +19,11 @@ export class AppointmentService {
   constructor(private httpClient: HttpClient) { }
 
   getAppointments(): Observable<Appointment[]> {
-    return this.httpClient.get<Appointment[]>(this.endPoint);
+    return this.httpClient.get<Appointment[]>(this.appointmentEndPoint);
+  }
+
+
+  authenticate(credentials: { username: string; password: string }): Observable<any> {
+    return this.httpClient.post<any>(this.authEndPoint, credentials);
   }
 }

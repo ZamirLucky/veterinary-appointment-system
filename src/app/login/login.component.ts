@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AppointmentService } from '../services/appointment.service';
 //import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,17 +14,25 @@ export class LoginComponent implements OnInit{
 
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(
+    private formBuilder: FormBuilder,
+    private appointService: AppointmentService
+  ){}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: [''],
+      username: [''],
       password: [''],
     });
   }
 
   
   onSubmit() {
-    console.warn(this.loginForm.value);
+    if (this.loginForm.valid){
+      this.appointService.authenticate(this.loginForm.value).subscribe({
+        next: (response) => console.warn("Login successfuly ", response),
+        error: (error) => console.warn("Login error ", error)
+      });
+    }
   }
 }
