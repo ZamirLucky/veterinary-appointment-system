@@ -29,4 +29,27 @@ export class AuthService {
   getAuthToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
+
+  /**
+ * Logs out the user by removing the authentication token from local storage.
+ *
+ * This method clears the user's session by removing the token stored under the key defined
+ * by this.tokenKey. Once the token is removed, the user is effectively logged out.
+ */
+  logout(): void{
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  /**
+ * Checks if the user is currently logged in.
+ *
+ * This method returns a boolean value indicating whether an authentication token exists
+ * in local storage. If a token is found (i.e., the user is logged in), it returns true;
+ * otherwise, it returns false.
+ *
+ * @returns A boolean value representing the user's authentication status.
+ */
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem(this.tokenKey);
+  }
 }

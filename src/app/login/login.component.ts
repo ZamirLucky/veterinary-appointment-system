@@ -55,15 +55,14 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid){
       this.appointService.authenticate(this.loginForm.value).subscribe({
         next: (response) => {
-          console.warn("Login successfuly ", response);
           this.authService.setAuthToken(response.jwtToken);
           this.router.navigate(['/appointments']);
         },
         error: (error) => {
           this.errorMessage = "Something went wrong from server";
-          console.warn("Login error ", error);   
         }
       });
     }
   }
+
 }
