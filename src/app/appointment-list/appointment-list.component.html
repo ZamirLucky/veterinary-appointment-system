@@ -18,21 +18,23 @@
                         <th>Animal Type</th>
                         <th>Owner Name</th>
                         <th>Owner Surname</th>
-                        <th>Appointment Date and Time</th>
-                        <th>Appointment Duration</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Duration</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 <!-- Example appointment row -->
-                    @for (appointment of appointments; track appointment.id){
+                    @for (appointment of appointments; track appointment.appointmentId){
                         <tr>
-                            <td>{{appointment.id}}</td>
-                            <td>{{appointment.PatientName}}</td>
+                            <td>{{appointment.appointmentId}}</td>
+                            <td>{{appointment.patientName}}</td>
                             <td>{{appointment.animalType}}</td>
                             <td>{{appointment.ownerName}}</td>
                             <td>{{appointment.ownerSurname}}</td>
-                            <td>{{appointment.appointmentDateTime}}</td>
+                            <td>{{appointment.appointmentDate}}</td>
+                            <td>{{appointment.appointmentTime}}</td>
                             <td>{{appointment.appointmentDuration}}</td>
                             <td>
                             <a href="view-appointment.html?id=1" class="btn btn-info btn-sm">View</a>
@@ -45,7 +47,7 @@
             </table>
         </div>
     } @else {
-        <div>The appointments is empty</div>
+        <div>Could not be displayed</div>
     }
   </div>
 </body>

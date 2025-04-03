@@ -1,39 +1,41 @@
 export class Appointment{
-    private _id: number;
+    private _appointmentId: number;
     private _patientName: string;
     private _animalType: string;
     private _ownerName: string;                
     private _ownerSurname: string;
-    private _appointmentDateTime: Date;
-    private _appointmentDuration: string;
+    private _appointmentDate: string;
+    private _appointmentTime: string;
+    private _appointmentDuration: number;
 
     constructor(
-        id: number,
+        appointmentId: number,
         patientName: string,
         animalType: string,
         ownerName: string,
         ownerSurname: string,
-        appointmentDateTime: Date,
-        appointmentDuratino: string
+        appointmentDate: string,
+        appointmentTime: string,
+        appointmentDuratino: number
     ){
-        this._id = id;
+        this._appointmentId = appointmentId;
         this._patientName = patientName;
         this._animalType = animalType;
         this._ownerName = ownerName;
         this._ownerSurname = ownerSurname;
-        this._appointmentDateTime = appointmentDateTime;
+        this._appointmentDate = appointmentDate;
+        this._appointmentTime = appointmentTime;
         this._appointmentDuration = appointmentDuratino;
-
     }
 
-    public get id(): number{
-        return this._id;
+    public get appointmentId(): number{
+        return this._appointmentId;
     }
-    public set id(id: number){
-        this._id = id;
+    public set appointmentId(appointmentId: number){
+        this._appointmentId = appointmentId;
     }
 
-    public get PatientName(): string{
+    public get patientName(): string{
         return this._patientName;
     }
     public set patientName(patientName: string){
@@ -55,23 +57,30 @@ export class Appointment{
     }
 
     public get ownerSurname(): string{
-        return this.ownerSurname;
+        return this._ownerSurname;
     }
-    public set ownersurname(ownerSurname: string){
+    public set ownerSurname(ownerSurname: string){
         this._ownerSurname = ownerSurname;
     }
 
-    public get appointmentDateTime(): Date{
-        return this._appointmentDateTime;
+    public get appointmentDate(): string{
+        return this._appointmentDate;
     }
-    public set appointmentDateTime(appointmentDateTime: Date){
-        this._appointmentDateTime = appointmentDateTime;
+    public set appointmentDate(appointmentDate: string){
+        this._appointmentDate = appointmentDate;
     }
 
-    public get appointmentDuration(): string{
+    public get appointmentTime(): string{
+        return this._appointmentTime;
+    }
+    public set appointmentTime(appointmentTime: string){
+        this._appointmentTime = appointmentTime;
+    }
+
+    public get appointmentDuration(): number{
         return this._appointmentDuration;
     }
-    public set appointmentDuration(appointmentDuration: string){
+    public set appointmentDuration(appointmentDuration: number){
         this._appointmentDuration = appointmentDuration;
     }
 
