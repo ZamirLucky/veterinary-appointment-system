@@ -39,6 +39,7 @@ export class AuthService {
    * @param role - The user's role, e.g., RECEPTIONIST, VET, or ADMIN.
   */
   setUserRole(role: UserRole): void {
+    console.log("(AuthService) Setting user role to:", role); // Add debug logging
     localStorage.setItem(this.roleKey, role);
   }
 
@@ -48,7 +49,7 @@ export class AuthService {
    * @returns The user's role if it exists, otherwise null.
   */
   getUserRole(): UserRole | null {
-    return localStorage.getItem(this.roleKey) as UserRole;
+    return localStorage.getItem(this.roleKey) as UserRole | null;
   }
 
   /**

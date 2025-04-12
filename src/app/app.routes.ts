@@ -8,10 +8,16 @@ import { UserRole } from './services/userRole.service';
 export const routes: Routes = [
     {path: "appointments", 
         component: AppointmentListComponent, 
+        canActivate: [AuthGuard]
+    },
+    {path: "login", component: LoginComponent},
+    {path: "addAppointment", 
+        component: AddAppointmentComponent, 
         canActivate: [AuthGuard],
         data: { expectedRoles: [UserRole.RECEPTIONIST, UserRole.ADMIN] }
     },
-    {path: "login", component: LoginComponent},
-    {path: "addAppointment", component: AddAppointmentComponent, canActivate: [AuthGuard]},
-    {path: "**", redirectTo: "/appointments", pathMatch: "full"}
+    {path: "**", 
+        redirectTo: "/appointments", 
+        pathMatch: "full"
+    }
 ];

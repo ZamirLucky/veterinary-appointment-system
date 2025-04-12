@@ -4,6 +4,7 @@ import { AppointmentService } from '../services/appointment.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { UserRole } from '../services/userRole.service';
 
 /**
  * LoginComponent handles user authentication.
@@ -55,7 +56,12 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid){
       this.appointService.authenticate(this.loginForm.value).subscribe({
         next: (response) => {
+          // Log the response to see the role
+          console.log("Login response:", response);
+
           this.authService.setAuthToken(response.jwtToken);
+          this.authService.setUserRole(response.role); // not hard-coded to VET!
+          //this.authService.setUserRole(UserRole.VET);
           this.router.navigate(['/appointments']);
         },
         error: (error) => {
