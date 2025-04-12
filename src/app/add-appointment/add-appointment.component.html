@@ -1,1 +1,140 @@
-<p>add-appointment works!</p>
+<div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <h2 class="mb-4">Add Appointment</h2>
+        <form> <!--[formGroup]="appointmentForm" (ngSubmit)="onSubmit()"> -->
+          <!-- Patient Name -->
+          <div class="mb-3">
+            <label for="patientName" class="form-label">Patient Name</label>
+            <input 
+              type="text" 
+              id="patientName" 
+              formControlName="patientName" 
+              class="form-control" 
+              placeholder="Enter patient name">
+          </div>
+  
+          <!-- Animal Type -->
+          <div class="mb-3">
+            <label for="animalType" class="form-label">Animal Type</label>
+            <select 
+              id="animalType" 
+              formControlName="animalType" 
+              class="form-select">
+              <option value="" disabled>Select animal type</option>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Rabbit">Rabbit</option>
+              <option value="Bird">Bird</option>
+              <option value="Reptile">Reptile</option>
+            </select>
+          </div>
+  
+          <!-- Owner Information -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="ownerIdCardNumber" class="form-label">Owner ID Card Number</label>
+              <input 
+                type="text" 
+                id="ownerIdCardNumber" 
+                formControlName="ownerIdCardNumber" 
+                class="form-control" 
+                placeholder="Enter ID Card Number">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="ownerContactNumber" class="form-label">Owner Contact Number</label>
+              <input 
+                type="text" 
+                id="ownerContactNumber" 
+                formControlName="ownerContactNumber" 
+                class="form-control" 
+                placeholder="Enter Contact Number">
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="ownerName" class="form-label">Owner Name</label>
+              <input 
+                type="text" 
+                id="ownerName" 
+                formControlName="ownerName" 
+                class="form-control" 
+                placeholder="Enter Owner Name">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="ownerSurname" class="form-label">Owner Surname</label>
+              <input 
+                type="text" 
+                id="ownerSurname" 
+                formControlName="ownerSurname" 
+                class="form-control" 
+                placeholder="Enter Owner Surname">
+            </div>
+          </div>
+  
+          <!-- Appointment Date and Time -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="appointmentDate" class="form-label">Appointment Date</label>
+              <input 
+                type="date" 
+                id="appointmentDate" 
+                formControlName="appointmentDate" 
+                class="form-control">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="appointmentTime" class="form-label">Appointment Time</label>
+              <input 
+                type="time" 
+                id="appointmentTime" 
+                formControlName="appointmentTime" 
+                class="form-control">
+            </div>
+          </div>
+  
+          <!-- Appointment Duration using Radio Buttons -->
+          <div class="col-md-6 mb-3">
+            <label for="appointmentDuration" class="form-label">Appointment Duration</label>
+            <select 
+              id="appointmentDuration" 
+              formControlName="appointmentDuration" 
+              class="form-select">
+              <option value="" disabled selected>Select duration</option>
+              <option value="10 mins">10 mins</option>
+              <option value="15 mins">15 mins</option>
+              <option value="30 mins">30 mins</option>
+            </select>
+          </div>
+  
+          <!-- Reason for Appointment -->
+          <div class="mb-3">
+            <label for="reasonForAppointment" class="form-label">Reason for Appointment</label>
+            <textarea 
+              id="reasonForAppointment" 
+              formControlName="reasonForAppointment" 
+              class="form-control" 
+              rows="3" 
+              placeholder="Enter reason for appointment"></textarea>
+          </div>
+  
+          <!-- Vet Notes (Conditional Display) -->
+          <div class="mb-3" *ngIf="currentUserRole === 'VET' || currentUserRole === 'ADMIN'">
+            <label for="vetNotes" class="form-label">Vet Notes</label>
+            <textarea 
+              id="vetNotes" 
+              formControlName="vetNotes" 
+              class="form-control" 
+              rows="3" 
+              placeholder="Enter vet notes"></textarea>
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Submit Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+  
