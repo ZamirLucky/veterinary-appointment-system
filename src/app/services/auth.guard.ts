@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
-import { CanActivate, Router} from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import { UserRole } from "./userRole.service";
 
 /**
  * AuthGuard is a route guard that prevents unauthorized users from accessing certain routes.
@@ -24,7 +25,7 @@ export class AuthGuard implements CanActivate{
      *
      * @returns A boolean indicating whether the route can be activated.
     */
-    canActivate(): boolean{
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
         const token = this.authService.getAuthToken();
         if (token){
             return true;
@@ -32,6 +33,24 @@ export class AuthGuard implements CanActivate{
             this.router.navigate(['/login']);
             return false;
         }
+
+        const expectedRoles: UserRole[] = route.data['expectedRoles'] ?? [];
+        console.log("Expected roles:", expectedRoles);
+
+        
+        if (expectedRoles.length === 0) {
+        return true;
+        }
+
+        const userRole = this.authService.getUserRole();
+        console.log("Current user role:", userRole);
+        if (!expectedRoles.includes(userRole as UserRole)) {
+        this.router.navigate(['/appointments']);
+        return false;
+        }
+
+        return true;
+        
     }
 
 }

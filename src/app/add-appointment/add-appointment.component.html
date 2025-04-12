@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8">
         <h2 class="mb-4">Add Appointment</h2>
-        <form> <!--[formGroup]="appointmentForm" (ngSubmit)="onSubmit()"> -->
+        <form [formGroup]="appointmentForm"> <!--(ngSubmit)="onSubmit()">-->
           <!-- Patient Name -->
           <div class="mb-3">
             <label for="patientName" class="form-label">Patient Name</label>
