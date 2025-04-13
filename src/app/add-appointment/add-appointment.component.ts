@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { AppointmentService } from '../services/appointment.service';
 import {  Router } from '@angular/router';
 import { AddAppointment } from '../dto/addAppointment.dto';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -25,7 +26,8 @@ export class AddAppointmentComponent implements OnInit {
     private authService: AuthService,
     private appointmentservice: AppointmentService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void 
@@ -126,16 +128,17 @@ export class AddAppointmentComponent implements OnInit {
 
       this.appointmentservice.addAppointment(appointmentPayload).subscribe({
         next: (response) => {
-          console.log('Appointment created successfully:', response);
+          this.alertService.showSuccess('Appointment has been added successfully!');
           this.router.navigate(['/appointments']);
         },
         error: (error) => {
           console.error('Error creating appointment:', error);
+          this.alertService.showWarning('Something went wrong!');
         }
       });
     } else {
       this.addAppointmentForm.markAllAsTouched();
-      console.warn('Form is invalid. Please review your inputs.');
+
     }
   }
 
@@ -173,32 +176,7 @@ export function futureDateTimeValidator(): ValidatorFn {
     }
 
     return null;
+
   }
+
 }
-
-
-
-
-
-// export function futureDateValidator(): ValidatorFn {
-//   return (control: AbstractControl): {[key: string]: any} | null => {
-//     if (!control.value) {
-//       return null; 
-//     }
-//      // Take today's date and zero out time
-//      const currentDate = new Date();
-//      currentDate.setHours(0, 0, 0, 0);
- 
-//      // Take the selected date and zero out time
-//      const selectedDate = new Date(control.value);
-//      selectedDate.setHours(0, 0, 0, 0);
- 
-//      // If you want today to be valid (i.e., not in the past), use <=
-//      // If you want to require strictly future (excluding today), use <
-//      return selectedDate < currentDate ? { 'pastDate': { value: control.value } } : null;
-
-//     // const currentDate = new Date();
-//     // const selectedDate = new Date(control.value);
-//     // return selectedDate < currentDate ? { 'pastDate': { value: control.value } } : null;
-//   };
-// }
