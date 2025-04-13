@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Appointment } from '../dto/appointment.dto';
+import { AddAppointment } from '../dto/addAppointment.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,13 @@ export class AppointmentService {
     return this.httpClient.get<Appointment[]>(this.appointmentEndPoint);
   }
 
+  addAppointment(appointment: AddAppointment): Observable<AddAppointment> {
+    return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment);
+  }
+
   authenticate(credentials: { username: string; password: string }): Observable<any> {
     return this.httpClient.post<any>(this.authEndPoint, credentials);
   }
+
+
 }
