@@ -12,6 +12,15 @@
               formControlName="patientName" 
               class="form-control" 
               placeholder="Enter patient name">
+              <div *ngIf="patientName?.invalid && (patientName?.dirty || patientName?.touched)" 
+                class="text-danger">
+                <div *ngIf="patientName?.errors?.['required']">
+                  Patient name is required.
+                </div>
+                <div *ngIf="patientName?.errors?.['pattern']">
+                  Patient name should be only letters. (A-Z)
+                </div>
+              </div>
           </div>
   
           <!-- Animal Type -->
@@ -28,6 +37,12 @@
               <option value="Bird">Bird</option>
               <option value="Reptile">Reptile</option>
             </select>
+            <div *ngIf="animalType?.invalid && animalType?.touched" 
+                class="text-danger">
+                <div *ngIf="patientName?.errors?.['required']">
+                  Animal type is required.
+                </div>
+            </div>
           </div>
   
           <!-- Owner Information -->
@@ -40,7 +55,16 @@
                 formControlName="ownerIdCardNumber" 
                 class="form-control" 
                 placeholder="Enter ID Card Number">
-            </div>
+              <div *ngIf="ownerIdCardNumber?.invalid && (ownerIdCardNumber?.dirty || ownerIdCardNumber?.touched)" 
+                class="text-danger">
+                <div *ngIf="ownerIdCardNumber?.errors?.['required']">
+                  Owner ID Card is required.
+                </div>
+                <div *ngIf="ownerIdCardNumber?.errors?.['pattern']">
+                  Owner ID Card must be numbers ending with a letter (e.g., 2222G).
+                </div>
+              </div>
+            </div>            
             <div class="col-md-6 mb-3">
               <label for="ownerContactNumber" class="form-label">Owner Contact Number</label>
               <input 
@@ -49,6 +73,15 @@
                 formControlName="ownerContactNumber" 
                 class="form-control" 
                 placeholder="Enter Contact Number">
+              <div *ngIf="ownerContactNumber?.invalid && (ownerContactNumber?.dirty || ownerContactNumber?.touched)" 
+                class="text-danger">
+                <div *ngIf="ownerContactNumber?.errors?.['required']">
+                  Owner contact number is required.
+                </div>
+                <div *ngIf="ownerContactNumber?.errors?.['pattern']">
+                  Owner contact number must be exectily 8 numbers (e.g., 6666666).
+                </div>
+              </div>
             </div>
           </div>
   
@@ -61,6 +94,21 @@
                 formControlName="ownerName" 
                 class="form-control" 
                 placeholder="Enter Owner Name">
+              <div *ngIf="ownerName?.invalid && (ownerName?.dirty || ownerName?.touched)" 
+                class="text-danger">
+                <div *ngIf="ownerName?.errors?.['required']">
+                  Owner name is required.
+                </div>
+                <div *ngIf="ownerName?.errors?.['pattern']">
+                  Owner name must contain only letters.
+                </div>
+                <div *ngIf="ownerName?.errors?.['minlength']">
+                  Owner name must be at least 3 characters.
+                </div>
+                <div *ngIf="ownerName?.errors?.['maxlength']">
+                  Owner name must be 20 characters or less.
+                </div>
+              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="ownerSurname" class="form-label">Owner Surname</label>
@@ -69,7 +117,23 @@
                 id="ownerSurname" 
                 formControlName="ownerSurname" 
                 class="form-control" 
-                placeholder="Enter Owner Surname">
+                placeholder="Enter Owner Surname"
+              >
+              <div *ngIf="ownerSurname?.invalid && (ownerSurname?.dirty || ownerSurname?.touched)" 
+                class="text-danger">
+                <div *ngIf="ownerSurname?.errors?.['required']">
+                  Owner surname is required.
+                </div>
+                <div *ngIf="ownerSurname?.errors?.['pattern']">
+                  Owner surname must contain only letters.
+                </div>
+                <div *ngIf="ownerSurname?.errors?.['minlength']">
+                  Owner surname must be at least 3 characters.
+                </div>
+                <div *ngIf="ownerSurname?.errors?.['maxlength']">
+                  Owner surname must be 20 characters or less.
+                </div>
+              </div>
             </div>
           </div>
   
@@ -78,10 +142,30 @@
             <div class="col-md-6 mb-3">
               <label for="appointmentDate" class="form-label">Appointment Date</label>
               <input type="date" id="appointmentDate" formControlName="appointmentDate" class="form-control">
+              <div *ngIf="appointmentDate?.invalid && appointmentDate?.touched" 
+                class="text-danger">
+                <div *ngIf="appointmentDate?.errors?.['required']">
+                  Appointment date is required.
+                </div>
+              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="appointmentTime" class="form-label">Appointment Time</label>
               <input type="time" id="appointmentTime" formControlName="appointmentTime" class="form-control">
+              <div *ngIf="appointmentTime?.invalid && appointmentTime?.touched" 
+                class="text-danger">
+                <div *ngIf="appointmentTime?.errors?.['required']">
+                  Appointment time is required.
+                </div>
+              </div>
+            </div>
+            <!-- Cross-Field Error -->
+            <div class="col-12">
+              <div *ngIf="addAppointmentForm.errors?.['pastDateTime'] && 
+                  (appointmentDate?.touched || appointmentTime?.touched)" 
+                class="text-danger">
+                The chosen date/time is in the past. Please select a future date/time.
+              </div>
             </div>
           </div>
   
@@ -97,6 +181,12 @@
               <option value="15">15 mins</option>
               <option value="30">30 mins<option>
             </select>
+            <div *ngIf="appointmentDuration?.invalid && appointmentDuration?.touched" 
+                class="text-danger">
+                <div *ngIf="appointmentDuration?.errors?.['required']">
+                  Appointment duration is required.
+                </div>
+            </div>
           </div>
   
           <!-- Reason for Appointment -->
@@ -107,7 +197,14 @@
               formControlName="reasonForAppointment" 
               class="form-control" 
               rows="3" 
-              placeholder="Enter reason for appointment"></textarea>
+              placeholder="Enter reason for appointment">
+            </textarea>
+            <div *ngIf="reasonForAppointment?.invalid && reasonForAppointment?.touched" 
+                class="text-danger">
+                <div *ngIf="reasonForAppointment?.errors?.['required']">
+                  reason for a appointment is required.
+                </div>
+            </div>
           </div>
   
           <!-- Vet Notes (Conditional Display) -->
@@ -123,9 +220,11 @@
   
           <!-- Submit Button -->
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Submit Appointment</button>
+            <button type="submit"  class="btn btn-primary">Submit Appointment</button>
           </div>
         </form>
       </div>
     </div>
 </div>
+
+<!-- [disabled]="!addAppointmentForm.valid" -->
