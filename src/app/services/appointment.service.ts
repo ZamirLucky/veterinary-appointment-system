@@ -24,13 +24,19 @@ export class AppointmentService {
   }
 
   addAppointment(appointment: AddAppointment): Observable<AddAppointment> {
-    return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment);
+    return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment)
+    ;
   }
 
   deleteAppointment(appointmentId: number): Observable<Appointment> {
     const url = `${this.appointmentEndPoint}/${appointmentId}`;
     return this.httpClient.delete<Appointment>(url, this.httpHeader)
       .pipe(catchError((error) => throwError(() => error)));
+  }
+
+  updateAppointment(appointment: Appointment): Observable<Appointment> {
+    return this.httpClient.put<Appointment>(this.appointmentEndPoint, appointment, this.httpHeader)
+    .pipe(catchError((error) => throwError(() => error)));
   }
 
   authenticate(credentials: { username: string; password: string }): Observable<any> {

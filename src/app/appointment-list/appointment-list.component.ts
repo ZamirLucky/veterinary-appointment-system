@@ -59,8 +59,8 @@ export class AppointmentListComponent implements OnInit{
               text: "The appointment has been deleted.",
               icon: "success"
             });
-            //this.appointments = this.appointments.filter(appt => appt.appointmentId !== appointmentId);
-            this.initialiseAppointments(); 
+            this.appointments = this.appointments.filter(appt => appt.appointmentId !== appointmentId);
+            //this.initialiseAppointments(); 
           },
           error: (error) => {
             swalWithBootstrapButtons.fire({
