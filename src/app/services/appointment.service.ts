@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Appointment } from '../dto/appointment.dto';
 import { AddAppointment } from '../dto/addAppointment.dto';
 
@@ -25,6 +25,12 @@ export class AppointmentService {
 
   addAppointment(appointment: AddAppointment): Observable<AddAppointment> {
     return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment);
+  }
+
+  deleteAppointment(appointmentId: number): Observable<Appointment> {
+    const url = `${this.appointmentEndPoint}/${appointmentId}`;
+    return this.httpClient.delete<Appointment>(url, this.httpHeader)
+      .pipe(catchError((error) => throwError(() => error)));
   }
 
   authenticate(credentials: { username: string; password: string }): Observable<any> {

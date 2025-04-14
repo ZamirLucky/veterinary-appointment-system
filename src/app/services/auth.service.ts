@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserRole } from './userRole.service';
+//import { UserRole } from './userRole.service';
 
 /**
  * AuthService is managing the authentication token.
@@ -12,74 +12,41 @@ export class AuthService {
   private tokenKey: string = 'jwtToken';
   private roleKey: string = 'userRole';
 
-  /**
-   * Stores the authentication token in local storage.
-   *
-   * The method called after a successful login to persist the JWT token.
-   *
-   * @param token - The JWT token received from the authentication endpoint.
-  */
+  // Save token and role in local storage after login
   setAuthToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
-  /**
-   * Retrieves the stored authentication token from local storage.
-   *
-   * @returns The JWT token if it exists, otherwise null.
-  */
+  // Retrieve token from local storage
   getAuthToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
-  /**
-   * Stores the user role in local storage.
-   * This should be set after login along with the JWT token.
-   *
-   * @param role - The user's role, e.g., RECEPTIONIST, VET, or ADMIN.
-  */
-  setUserRole(role: UserRole): void {
-    console.log("(AuthService) Setting user role to:", role); // Add debug logging
+   // Set role to local storage
+   setUserRole(role: string): void {
     localStorage.setItem(this.roleKey, role);
   }
 
-  /**
-   * Retrieves the stored user role from local storage.
-   *
-   * @returns The user's role if it exists, otherwise null.
-  */
-  getUserRole(): UserRole | null {
-    return localStorage.getItem(this.roleKey) as UserRole | null;
+  // Retrieve user role from local storage
+  getUserRole(): string | null {
+    return localStorage.getItem(this.roleKey);
   }
 
-  /**
-   * Checks whether the user has the Admin role.
-   *
-   * @returns True if the user's role is ADMIN, false otherwise.
-  */
+  // check whether user has the desired role
   isAdmin(): boolean {
-    return this.getUserRole() === UserRole.ADMIN;
+    return this.getUserRole() === 'ADMIN';
   }
 
-  /**
-   * Checks whether the user has the Receptionist role.
-   *
-   * @returns True if the user's role is RECEPTIONIST, false otherwise.
-   */
+  
   isReceptionist(): boolean {
-    return this.getUserRole() === UserRole.RECEPTIONIST;
+    return this.getUserRole() === 'RECEPTIONIST';
+  }
+
+  isVet(): boolean {
+    return this.getUserRole() === 'VET';
   }
 
   /**
-   * Checks whether the user has the Vet role.
-   *
-   * @returns True if the user's role is VET, false otherwise.
-  */
-  isVet(): boolean {
-    return this.getUserRole() === UserRole.VET;
-  }
-
- /**
    * Logs out the user by removing the authentication token and user role from local storage.
    * After calling this method, the user is effectively logged out.
   */
@@ -88,15 +55,7 @@ export class AuthService {
     localStorage.removeItem(this.roleKey);
   }
 
-  /**
- * Checks if the user is currently logged in.
- *
- * This method returns a boolean value indicating whether an authentication token exists
- * in local storage. If a token is found (i.e., the user is logged in), it returns true;
- * otherwise, it returns false.
- *
- * @returns A boolean value representing the user's authentication status.
- */
+  // get from local storage
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.tokenKey);
   }

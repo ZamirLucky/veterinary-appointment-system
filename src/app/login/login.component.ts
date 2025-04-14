@@ -4,7 +4,7 @@ import { AppointmentService } from '../services/appointment.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
-import { UserRole } from '../services/userRole.service';
+
 
 /**
  * LoginComponent handles user authentication.

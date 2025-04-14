@@ -3,7 +3,7 @@ import { AppointmentListComponent } from './appointment-list/appointment-list.co
 import { LoginComponent } from './login/login.component';
 import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
 import { AuthGuard } from './services/auth.guard';
-import { UserRole } from './services/userRole.service';
+
 
 export const routes: Routes = [
     {path: "appointments", 
@@ -14,10 +14,10 @@ export const routes: Routes = [
     {path: "addAppointment", 
         component: AddAppointmentComponent, 
         canActivate: [AuthGuard],
-        data: { expectedRoles: [UserRole.RECEPTIONIST, UserRole.ADMIN] }
+        data: { expectedRoles: ['RECEPTIONIST', 'ADMIN'] }
     },
     {path: "**", 
-        redirectTo: "/appointments", 
+        redirectTo: "/appointments",
         pathMatch: "full"
     }
 ];

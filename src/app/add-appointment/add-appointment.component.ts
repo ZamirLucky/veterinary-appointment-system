@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { UserRole } from '../services/userRole.service';
 import { AuthService } from '../services/auth.service';
 import { AppointmentService } from '../services/appointment.service';
 import {  Router } from '@angular/router';
@@ -19,7 +18,7 @@ export class AddAppointmentComponent implements OnInit {
   
 
   addAppointmentForm!: FormGroup;
-  currentUserRole: UserRole | '' = '';
+  currentUserRole: string = '';
   
   constructor(
     private formBuilder: FormBuilder, 

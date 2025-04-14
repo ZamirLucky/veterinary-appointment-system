@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import { UserRole } from "./userRole.service";
+
 
 /**
  * AuthGuard is a route guard that prevents unauthorized users from accessing certain routes.
@@ -31,38 +31,24 @@ export class AuthGuard implements CanActivate{
             this.router.navigate(['/login']);
             return false;
         }
-        // if (token){
-        //     return true;
-        // } else{
-        //     this.router.navigate(['/login']);
-        //     return false;
-        // }
 
-        // Force expectedRoles to be an array even if undefined.
-        const expectedRoles: UserRole[] = route.data['expectedRoles'] ?? [];
-        console.log("Expected roles:", expectedRoles);
-
+        // Retrieve the expected roles from the route data as an array of strings.
+        const expectedRoles: string[] = route.data['expectedRoles'] ?? [];
         
+
+        // Retrieve the user's role
         const userRole = this.authService.getUserRole();
         console.log("Current user role:", userRole);
 
-        // If route data contains no roles, do we really want to grant free access?
-        // If yes, returning here means any code after is unreachable.
+        // If route data contains no roles, allow access
         if (expectedRoles.length === 0) {
-        return true;
+            return true;
         }
 
-        // // If expectedRoles has any roles defined and the user's role is not among them, block access.
-        // if (expectedRoles.length > 0 && !expectedRoles.includes(userRole as UserRole)) {
-        //     console.warn(`Access denied: user role "${userRole}" is not permitted for ${state.url}.`);
-        //     this.router.navigate(['/appointments']);
-        //     return false;
-        // }
-
-        // !expected roles, block access
-        if (!expectedRoles.includes(userRole as UserRole)) {
-        this.router.navigate(['/appointments']);
-        return false;
+        // if role is not ADMIN and RECEPTIONST block access.
+        if (!expectedRoles.includes(userRole || '')) {
+            this.router.navigate(['/appointments']);
+            return false;
         }
 
         //role is permitted
