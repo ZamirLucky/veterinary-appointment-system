@@ -6,16 +6,16 @@ import { AppointmentService } from '../services/appointment.service';
 import {  Router } from '@angular/router';
 import { AddAppointment } from '../dto/addAppointment.dto';
 import { AlertService } from '../services/alert.service';
+import { AppointmentFormComponent } from "../appointment-form/appointment-form.component";
 
 @Component({
   selector: 'app-add-appointment',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AppointmentFormComponent],
   templateUrl: './add-appointment.component.html',
   styleUrl: './add-appointment.component.css',
   providers: [DatePipe]
 })
 export class AddAppointmentComponent implements OnInit {
-  
 
   addAppointmentForm!: FormGroup;
   currentUserRole: string = '';
