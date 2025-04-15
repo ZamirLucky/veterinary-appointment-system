@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AppointmentService } from '../services/appointment.service';
 import {  Router } from '@angular/router';
 import { AddAppointment } from '../dto/addAppointment.dto';
 import { AlertService } from '../services/alert.service';
 import { AppointmentFormComponent } from "../appointment-form/appointment-form.component";
+import { futureDateTimeValidator } from '../update-appointment/update-appointment.component';
 
 @Component({
   selector: 'app-add-appointment',
@@ -17,8 +18,9 @@ import { AppointmentFormComponent } from "../appointment-form/appointment-form.c
 })
 export class AddAppointmentComponent implements OnInit {
 
-  addAppointmentForm!: FormGroup;
+  appointmentForm!: FormGroup;
   currentUserRole: string = '';
+  formSubmitted: boolean = false;
   
   constructor(
     private formBuilder: FormBuilder, 
@@ -31,7 +33,7 @@ export class AddAppointmentComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.addAppointmentForm = this.formBuilder.group({
+    this.appointmentForm = this.formBuilder.group({
       patientName: ['', [Validators.required, Validators.pattern('^[A-Za-z]+$')]],
       animalType: ['', Validators.required],
       ownerIdCardNumber: ['', [Validators.required, Validators.pattern(/^\d+[A-Za-z]$/)]],
@@ -64,48 +66,17 @@ export class AddAppointmentComponent implements OnInit {
     this.currentUserRole = this.authService.getUserRole() || '';
   }
 
-  // Getters to access in template
-  get ownerIdCardNumber() {
-    return this.addAppointmentForm.get('ownerIdCardNumber');
-  }
-  get ownerName() {
-    return this.addAppointmentForm.get('ownerName');
-  }
-  get ownerSurname() {
-    return this.addAppointmentForm.get('ownerSurname');
-  }
-  get ownerContactNumber() {
-    return this.addAppointmentForm.get('ownerContactNumber');
-  }
-  get patientName() {
-    return this.addAppointmentForm.get('patientName');
-  }
-  get animalType() {
-    return this.addAppointmentForm.get('animalType');
-  }
-  get appointmentDate() {
-    return this.addAppointmentForm.get('appointmentDate');
-  }
-  get appointmentTime() {
-    return this.addAppointmentForm.get('appointmentTime');
-  }
-  get appointmentDuration() {
-    return this.addAppointmentForm.get('appointmentDuration');
-  }
-  get reasonForAppointment() {
-    return this.addAppointmentForm.get('reasonForAppointment');
-  }
-
   /**
    *
    * This method checks if the form is valid and then performs the required actions
    * such as sending the form data to a service.
   */
   onSubmit(): void {
-    if (this.addAppointmentForm.valid) {
+    this.formSubmitted = true;
+    if (this.appointmentForm.valid) {
 
-      this.addAppointmentForm.markAllAsTouched();
-      const formValue = this.addAppointmentForm.value;
+  
+      const formValue = this.appointmentForm.value;
 
       const formattedDate = this.datePipe.transform(formValue.appointmentDate, 'dd/MM/yyyy');
       const appointmentDuration = Number(formValue.appointmentDuration);
@@ -136,46 +107,9 @@ export class AddAppointmentComponent implements OnInit {
         }
       });
     } else {
-      this.addAppointmentForm.markAllAsTouched();
+      this.appointmentForm.markAllAsTouched();
 
     }
-  }
-
-}
-
-
-/**
- * A custom cross-field validator that ensures the chosen date and time are not in the past.
-*/
-export function futureDateTimeValidator(): ValidatorFn {
-  return (group: AbstractControl): ValidationErrors | null => {
-    const dateValue = group.get('appointmentDate')?.value;
-    const timeValue = group.get('appointmentTime')?.value;
-
-    // fields are missing, !validate yet.
-    if (!dateValue || !timeValue) {
-      return null;
-    }
-
-    const chosenDate = new Date(dateValue); 
-
-    // Parse the time from "HH:mm" (24-hour format).
-    // AM/PM parser.
-    let [hours, minutes] = timeValue.split(':');
-    const hoursNum = parseInt(hours, 10);
-    const minutesNum = parseInt(minutes, 10);
-
-    // Set the hours and minutes on the date.
-    chosenDate.setHours(hoursNum, minutesNum, 0, 0);
-    const now = new Date();
-
-    // Compare chosenDate and current date/time.
-    if (chosenDate < now) {
-      return { pastDateTime: true };
-    }
-
-    return null;
-
   }
 
 }

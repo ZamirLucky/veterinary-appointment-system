@@ -20,12 +20,13 @@ export class AppointmentService {
   constructor(private httpClient: HttpClient) { }
 
   getAppointments(): Observable<Appointment[]> {
-    return this.httpClient.get<Appointment[]>(this.appointmentEndPoint);
+    return this.httpClient.get<Appointment[]>(this.appointmentEndPoint, this.httpHeader)
+    .pipe(catchError((error) => throwError(() => error)));
   }
 
   addAppointment(appointment: AddAppointment): Observable<AddAppointment> {
-    return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment)
-    ;
+    return this.httpClient.post<AddAppointment>(this.appointmentEndPoint, appointment, this.httpHeader)
+    .pipe(catchError((error) => throwError(() => error)));
   }
 
   deleteAppointment(appointmentId: number): Observable<Appointment> {
@@ -34,8 +35,15 @@ export class AppointmentService {
       .pipe(catchError((error) => throwError(() => error)));
   }
 
+  getAppointmentById(appointmentId: number): Observable<Appointment> {
+    //const url = `${this.appointmentEndPoint}/${appointmentId}`;
+    return this.httpClient.get<Appointment>(`${this.appointmentEndPoint}/${appointmentId}`, this.httpHeader)
+    .pipe(catchError((error) => throwError(() => error)));
+  }
+
   updateAppointment(appointment: Appointment): Observable<Appointment> {
-    return this.httpClient.put<Appointment>(this.appointmentEndPoint, appointment, this.httpHeader)
+    const url = `${this.appointmentEndPoint}/${appointment.appointmentId}`;
+    return this.httpClient.put<Appointment>(url, appointment, this.httpHeader)
     .pipe(catchError((error) => throwError(() => error)));
   }
 

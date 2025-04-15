@@ -1,1 +1,14 @@
-<p>update-appointment works!</p>
+<div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <h2 class="mb-4">Update Appointment</h2>
+        <app-appointment-form 
+            [appointmentForm]="appointmentForm" 
+            [formSubmitted]="formSubmitted"
+            [currentUserRole]="currentUserRole"
+            [disableId]="false">
+        </app-appointment-form>
+        <button class="btn btn-primary" (click)="onSubmit()">Update Appointment</button>
+      </div>
+    </div>
+</div>

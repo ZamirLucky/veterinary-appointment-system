@@ -38,7 +38,7 @@
                             <td>{{appointment.appointmentDuration}}</td>
                             <td>
                             <a href="view-appointment.html?id=1" class="btn btn-info btn-sm">View</a>
-                            <a href="update-appointment.html?id=1" class="btn btn-warning btn-sm">Update</a>
+                            <a [routerLink]="['/update-appointment', appointment.appointmentId]" class="btn btn-warning btn-sm">Update</a>
                             <button class="btn btn-danger btn-sm"
                                  [disabled]="currentUserRole !== 'ADMIN'"
                                 (click)="deleteAppointment(appointment.appointmentId)">

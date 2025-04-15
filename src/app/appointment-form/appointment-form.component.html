@@ -1,4 +1,44 @@
-<div [formGroup]="appointmentForm">
+<form [formGroup]="appointmentForm">
+    <!--Appointment Id -->
+    <!-- <div class="mb-3">
+      <label for="patientName" class="form-label">Appointment Id</label>
+      <input 
+        type="text" 
+        id="appointmentId" 
+        formControlName="appointmentId" 
+        class="form-control" 
+        placeholder="Enter patient name">
+        <div *ngIf="(appointmentId?.touched || formSubmitted || appointmentId?.dirty) && appointmentId?.invalid"
+          class="text-danger">
+ 
+          <div *ngIf="appointmentId?.errors?.['required']">
+            Patient name is required.
+          </div>
+          <div *ngIf="appointmentId?.errors?.['pattern']">
+            Patient name should be only letters. (A-Z)
+          </div>
+        </div>
+    </div> -->
+    
+    <div class="mb-3">
+      <label for="appointmentId" class="form-label">Appointment Id</label>
+      <input 
+        type="text" 
+        id="appointmentId" 
+        formControlName="appointmentId" 
+        class="form-control" 
+        placeholder="Appointment Id" 
+        readonly>
+      <div *ngIf="(appointmentForm.get('appointmentId')?.touched || formSubmitted) && appointmentForm.get('appointmentId')?.invalid" class="text-danger">
+        <div *ngIf="appointmentForm.get('appointmentId')?.errors?.['required']">
+          Appointment Id is required.
+        </div>
+        <div *ngIf="appointmentForm.get('appointmentId')?.errors?.['pattern']">
+          Appointment Id must be a number greater than 0.
+        </div>
+      </div>
+    </div>
+
     <!-- Patient Name -->
     <div class="mb-3">
       <label for="patientName" class="form-label">Patient Name</label>
@@ -8,8 +48,9 @@
         formControlName="patientName" 
         class="form-control" 
         placeholder="Enter patient name">
-        <div *ngIf="patientName?.invalid && (patientName?.dirty || patientName?.touched)" 
+        <div *ngIf="(patientName?.touched || formSubmitted || patientName?.dirty) && patientName?.invalid"
           class="text-danger">
+ 
           <div *ngIf="patientName?.errors?.['required']">
             Patient name is required.
           </div>
@@ -33,14 +74,14 @@
         <option value="Bird">Bird</option>
         <option value="Reptile">Reptile</option>
       </select>
-      <div *ngIf="animalType?.invalid && animalType?.touched" 
+      <div *ngIf="(animalType?.touched || animalType) && animalType?.invalid" 
           class="text-danger">
-          <div *ngIf="patientName?.errors?.['required']">
+          <div *ngIf="animalType?.errors?.['required']">
             Animal type is required.
           </div>
       </div>
     </div>
-
+    
     <!-- Owner Information -->
     <div class="row">
       <div class="col-md-6 mb-3">
@@ -51,7 +92,8 @@
           formControlName="ownerIdCardNumber" 
           class="form-control" 
           placeholder="Enter ID Card Number">
-        <div *ngIf="ownerIdCardNumber?.invalid && (ownerIdCardNumber?.dirty || ownerIdCardNumber?.touched)" 
+          
+        <div *ngIf="(ownerIdCardNumber?.touched || formSubmitted || ownerIdCardNumber?.dirty) && ownerIdCardNumber?.invalid"
           class="text-danger">
           <div *ngIf="ownerIdCardNumber?.errors?.['required']">
             Owner ID Card is required.
@@ -69,7 +111,7 @@
           formControlName="ownerContactNumber" 
           class="form-control" 
           placeholder="Enter Contact Number">
-        <div *ngIf="ownerContactNumber?.invalid && (ownerContactNumber?.dirty || ownerContactNumber?.touched)" 
+        <div *ngIf="(ownerContactNumber?.touched || formSubmitted || ownerContactNumber?.dirty) && ownerContactNumber?.invalid"
           class="text-danger">
           <div *ngIf="ownerContactNumber?.errors?.['required']">
             Owner contact number is required.
@@ -90,7 +132,7 @@
           formControlName="ownerName" 
           class="form-control" 
           placeholder="Enter Owner Name">
-        <div *ngIf="ownerName?.invalid && (ownerName?.dirty || ownerName?.touched)" 
+        <div *ngIf="(ownerName?.touched || formSubmitted || ownerName?.dirty) && ownerName?.invalid"
           class="text-danger">
           <div *ngIf="ownerName?.errors?.['required']">
             Owner name is required.
@@ -115,9 +157,9 @@
           class="form-control" 
           placeholder="Enter Owner Surname"
         >
-        <div *ngIf="ownerSurname?.invalid && (ownerSurname?.dirty || ownerSurname?.touched)" 
+        <div *ngIf="(ownerSurname?.touched || formSubmitted || ownerSurname?.dirty) && ownerSurname?.invalid" 
           class="text-danger">
-          <div *ngIf="ownerSurname?.errors?.['required']">
+          <div ngIf="ownerSurname?.errors?.['required']">
             Owner surname is required.
           </div>
           <div *ngIf="ownerSurname?.errors?.['pattern']">
@@ -138,7 +180,7 @@
       <div class="col-md-6 mb-3">
         <label for="appointmentDate" class="form-label">Appointment Date</label>
         <input type="date" id="appointmentDate" formControlName="appointmentDate" class="form-control">
-        <div *ngIf="appointmentDate?.invalid && appointmentDate?.touched" 
+        <div *ngIf="(appointmentDate?.touched || formSubmitted) && appointmentDate?.invalid" 
           class="text-danger">
           <div *ngIf="appointmentDate?.errors?.['required']">
             Appointment date is required.
@@ -148,7 +190,7 @@
       <div class="col-md-6 mb-3">
         <label for="appointmentTime" class="form-label">Appointment Time</label>
         <input type="time" id="appointmentTime" formControlName="appointmentTime" class="form-control">
-        <div *ngIf="appointmentTime?.invalid && appointmentTime?.touched" 
+        <div *ngIf="(appointmentTime?.touched || formSubmitted) && appointmentTime?.invalid" 
           class="text-danger">
           <div *ngIf="appointmentTime?.errors?.['required']">
             Appointment time is required.
@@ -157,7 +199,7 @@
       </div>
       <!-- Cross-Field Error -->
       <div class="col-12">
-        <div *ngIf="addAppointmentForm.errors?.['pastDateTime'] && 
+        <div *ngIf="appointmentForm.errors?.['pastDateTime'] && 
             (appointmentDate?.touched || appointmentTime?.touched)" 
           class="text-danger">
           The chosen date/time is in the past. Please select a future date/time.
@@ -177,7 +219,7 @@
         <option value="15">15 mins</option>
         <option value="30">30 mins<option>
       </select>
-      <div *ngIf="appointmentDuration?.invalid && appointmentDuration?.touched" 
+      <div *ngIf="(appointmentDuration?.touched || formSubmitted) && appointmentDuration?.invalid" 
           class="text-danger">
           <div *ngIf="appointmentDuration?.errors?.['required']">
             Appointment duration is required.
@@ -195,7 +237,7 @@
         rows="3" 
         placeholder="Enter reason for appointment">
       </textarea>
-      <div *ngIf="reasonForAppointment?.invalid && reasonForAppointment?.touched" 
+      <div *ngIf="(reasonForAppointment?.touched || formSubmitted || reasonForAppointment?.dirty) && reasonForAppointment?.invalid"
           class="text-danger">
           <div *ngIf="reasonForAppointment?.errors?.['required']">
             reason for a appointment is required.
@@ -214,11 +256,4 @@
         placeholder="Enter vet notes"></textarea>
     </div>
 
-</div>
-
-<!-- Submit Button -->
-<!-- <div class="d-grid">
-    <button type="submit"  class="btn btn-primary">Submit Appointment</button>
-</div> -->
-
-<!-- (ngSubmit)="onSubmit()" -->
+</form>

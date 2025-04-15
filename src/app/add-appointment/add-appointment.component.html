@@ -2,7 +2,12 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8">
         <h2 class="mb-4">Add Appointment</h2>
-        <app-appointment-form [appointmentForm]="addAppointmentForm"></app-appointment-form>
+        <app-appointment-form 
+        [appointmentForm]="appointmentForm" 
+        [formSubmitted]="formSubmitted"
+        [currentUserRole]="currentUserRole"
+        [disableId]="true">
+        </app-appointment-form>
         <button (click)="onSubmit()" class="btn btn-primary">Create Appointment</button>
       </div>
     </div>

@@ -3,12 +3,14 @@ import { AppointmentService } from '../services/appointment.service';
 import { Appointment } from '../dto/appointment.dto';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
+import { RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.css'
 })
