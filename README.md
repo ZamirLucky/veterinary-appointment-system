@@ -30,8 +30,6 @@ A simple, role-based Angular front-end for managing veterinary clinic appointmen
 - **Authentication:** JWT stored in `localStorage`  
 - **Build & Deployment:** Angular CLI, Docker (backend)
 
-## Setup and Installation
-
-1. **Clone the repository**  
-   git clone 
+## Clone the repository**  
+   git clone https://github.com/ZamirLucky/veterinary-appointment-system.git
 
